@@ -1,0 +1,55 @@
+<section>
+  <h1>TODO LIST</h1>
+  <!-- {{ todos }} -->
+
+  <h2>Add Task</h2>
+
+  <div>
+    Task Name
+    <input type="text" name="task_name" id="" [(ngModel)]="newTodo.todo_name" />
+    Task Description
+    <input
+      type="text"
+      name="task_description"
+      id=""
+      [(ngModel)]="newTodo.todo_description"
+    />
+    Task Completed
+    <label>
+      <input
+        type="radio"
+        name="task_completed"
+        [(ngModel)]="newTodo.todo_completed"
+        [value]="true"
+      />
+      Completed
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="task_completed"
+        [(ngModel)]="newTodo.todo_completed"
+        [value]="false"
+      />
+      Incomplete
+    </label>
+
+    <button (click)="addTodo()">Add</button>
+  </div>
+
+  <div *ngFor="let todo of todos">
+    <div *ngIf="updateId == false"; else elseBlock>
+
+    </div>
+
+    <ng-template #elseBlock>
+      <p><b>Task Name -></b> {{ todo.todo_name }}</p>
+      <p><b>Task Description -></b> {{ todo.todo_description }}</p>
+      <p><b>Task Completed -></b> {{ todo.todo_completed }}</p>
+      <button (click)="deleteTodo(todo._id)" style="background-color: red">
+        X
+      </button>
+      <button>Update</button>
+    </ng-template>
+  </div>
+</section>
