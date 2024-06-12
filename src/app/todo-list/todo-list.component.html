@@ -38,18 +38,57 @@
   </div>
 
   <div *ngFor="let todo of todos">
-    <div *ngIf="updateId == false"; else elseBlock>
-
-    </div>
-
-    <ng-template #elseBlock>
+    <div *ngIf="updateId === false; else elseBlock">
       <p><b>Task Name -></b> {{ todo.todo_name }}</p>
       <p><b>Task Description -></b> {{ todo.todo_description }}</p>
       <p><b>Task Completed -></b> {{ todo.todo_completed }}</p>
       <button (click)="deleteTodo(todo._id)" style="background-color: red">
         X
       </button>
-      <button>Update</button>
+      <button (click) = "activateTodo()">Update</button>
+    </div>
+
+    <ng-template #elseBlock>
+      <div>
+        Task Name
+        <input
+          type="text"
+          name="task_name"
+          [value]="todo.todo_name"
+          id=""
+          [(ngModel)]="todo.todo_name"
+        />
+        Task Description
+        <input
+          type="text"
+          name="task_description"
+          id=""
+          [value] = "todo.todo_description"
+          [(ngModel)]="todo.todo_description"
+        />
+        Task Completed
+        <label>
+          <input
+            type="radio"
+            name="task_completed"
+            [(ngModel)]="updateData.todo_completed"
+            [value]="true"
+          />
+          Completed
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="task_completed"
+            [(ngModel)]="updateData.todo_completed"
+            [value]="false"
+          />
+          Incomplete
+        </label>
+
+        <button (click)="updateData(todo._id)">Update</button>
+        <button (click)="cancelUpdate()">Cancel </button>
+      </div>
     </ng-template>
   </div>
 </section>

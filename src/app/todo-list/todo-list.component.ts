@@ -15,7 +15,7 @@ export class TodoListComponent {
   todos: any = [];
   newTodo: any = {};
   updateData: any = {};
-  updateId: any = false;
+  updateId: boolean = false;
 
   constructor(private todoService: TodoService) {}
 
@@ -41,23 +41,28 @@ export class TodoListComponent {
     });
   }
 
-  updateTodo(id: any ) {
-    this.todoService
-      .updateTodo(id , this.updateData)
-      .subscribe(() => {
-        // Update the todo in the todos array
-        this.todos = this.todos.map((t: any) => {
-          if (t._id === id) {
-            return {
-              ...t,
-              ...this.updateData,
-            };
-          }
-          return t;
-        });
-        this.updateData = {};
+  updateTodo(id: any) {
+    this.todoService.updateTodo(id, this.updateData).subscribe(() => {
+      // Update the todo in the todos array
+      this.todos = this.todos.map((t: any) => {
+        if (t._id === id) {
+          return {
+            ...t,
+            ...this.updateData,
+          };
+        }
+        return t;
       });
+      this.updateData = {};
+      this.updateId = false;
+    });
   }
 
+  activateTodo() {
+    this.updateId = true;
+  }
 
+  cancelUpdate() {
+    this.updateId = false;
+  }
 }
